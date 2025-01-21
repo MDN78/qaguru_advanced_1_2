@@ -16,6 +16,8 @@ pydantic = "^2.10.5"
 fastapi-pagination = "^0.12.34"
 uvicorn = "^0.34.0"
 
+[tool.pytest.ini_options]
+addopts = "-s -v"
 
 [build-system]
 requires = ["poetry-core"]

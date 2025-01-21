@@ -1,7 +1,7 @@
 import json
 import uvicorn
 from http import HTTPStatus
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from models.User import User
 
 app = FastAPI()
@@ -10,12 +10,14 @@ app = FastAPI()
 users: list[User]
 
 
-@app.get("api/users/{user_id}", status_code=HTTPStatus.OK)
-def get_user(user_id) -> User:
+@app.get("/api/users/{user_id}", status_code=HTTPStatus.OK)
+def get_user(user_id: int) -> User:
+    if user_id > len(users):
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="User not found")
     return users[user_id - 1]
 
 
-@app.get("api/users/", status_code=HTTPStatus.OK)
+@app.get("/api/users/", status_code=HTTPStatus.OK)
 def get_users() -> list[User]:
     return users
 
