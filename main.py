@@ -12,6 +12,8 @@ users: list[User]
 
 @app.get("/api/users/{user_id}", status_code=HTTPStatus.OK)
 def get_user(user_id: int) -> User:
+    if user_id < 1:
+        raise HTTPException(status_code=HTTPStatus.UNPROCESSABLE_ENTITY, detail="Invalid user id")
     if user_id > len(users):
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="User not found")
     return users[user_id - 1]
