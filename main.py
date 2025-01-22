@@ -1,12 +1,16 @@
 import json
 import uvicorn
 from http import HTTPStatus
-from fastapi import FastAPI, HTTPException
-
-from models.AppStatus import AppStatus
 from models.User import User
+from models.AppStatus import AppStatus
+from fastapi import FastAPI, HTTPException
+from fastapi_pagination import Page, paginate, add_pagination
+
+
 
 app = FastAPI()
+add_pagination(app)  # important! add pagination to your app
+
 
 # load file to memory
 users: list[User] = []
@@ -27,9 +31,9 @@ def get_user(user_id: int) -> User:
     return users[user_id - 1]
 
 
-@app.get("/api/users/", status_code=HTTPStatus.OK)
-def get_users() -> list[User]:
-    return users
+@app.get("/api/users/", response_model=Page[User])
+def get_users() -> Page[User]:
+    return paginate(users)
 
 
 if __name__ == "__main__":
