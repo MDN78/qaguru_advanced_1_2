@@ -12,6 +12,7 @@ def users(app_url):
 
 # valid values tests
 
+
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
