@@ -21,16 +21,16 @@ def test_status_users_dates(app_url):
     assert result['users'] == True
 
 
-def test_uncorrect_method_post(app_url):
+def test_incorrect_method_post(app_url):
     response = requests.post(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
 
 
-def test_uncorrect_method_put(app_url):
+def test_incorrect_method_put(app_url):
     response = requests.post(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
 
 
-def test_uncorrect_method_delete(app_url):
+def test_incorrect_method_delete(app_url):
     response = requests.post(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
