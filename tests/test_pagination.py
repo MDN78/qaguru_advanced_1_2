@@ -2,7 +2,7 @@ import pytest
 import requests
 
 
-def test_page_and_size_in_users(app_url):
+def test_total_page_and_size_in_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     data = response.json()
     assert data["total"] == 12
