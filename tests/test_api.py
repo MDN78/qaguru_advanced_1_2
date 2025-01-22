@@ -4,12 +4,6 @@ from http import HTTPStatus
 from models.User import User
 
 
-@pytest.fixture()
-def users(app_url):
-    response = requests.get(f"{app_url}/api/users/")
-    assert response.status_code == HTTPStatus.OK
-    return response.json()
-
 # valid values tests
 
 def test_users(app_url):
@@ -21,19 +15,16 @@ def test_users(app_url):
         User.model_validate(user)
 
 
-
 def test_users_no_duplicates(users):
     users_list = users["items"] if 'items' in users else []
-    users_ids = [user["id"] for user in users_list ]
+    users_ids = [user["id"] for user in users_list]
     assert len(users_ids) == len(set(users_ids))
-
 
 
 @pytest.mark.parametrize("user_id", [1, 6, 12])
 def test_user(app_url, user_id):
     response = requests.get(f"{app_url}/api/users/{user_id}")
     assert response.status_code == HTTPStatus.OK
-
     user = response.json()
     # validation response model
     User.model_validate(user)
