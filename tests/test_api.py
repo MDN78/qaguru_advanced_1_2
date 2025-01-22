@@ -5,7 +5,6 @@ from models.User import User
 
 
 # valid values tests
-
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
@@ -31,8 +30,6 @@ def test_user(app_url, user_id):
 
 
 # invalid values tests
-
-
 @pytest.mark.parametrize("user_id", [13])
 def test_user_nonexistent_values(app_url, user_id):
     response = requests.get(f"{app_url}/api/users/{user_id}")

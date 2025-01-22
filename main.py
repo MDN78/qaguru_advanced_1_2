@@ -6,11 +6,8 @@ from models.AppStatus import AppStatus
 from fastapi import FastAPI, HTTPException
 from fastapi_pagination import Page, paginate, add_pagination
 
-
-
 app = FastAPI()
 add_pagination(app)  # important! add pagination to your app
-
 
 # load file to memory
 users: list[User] = []
