@@ -20,3 +20,8 @@ def users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
     return response.json()
+
+
+@pytest.fixture
+def port():
+    return 8002
