@@ -15,7 +15,7 @@ def app_url():
     return os.getenv("APP_URL")
 
 
-@pytest.fixture()
+@pytest.fixture
 def users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
