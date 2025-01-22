@@ -12,19 +12,21 @@ def users(app_url):
 
 # valid values tests
 
-
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
-
-    users = response.json()
-    for user in users:
+    users_list = response.json()
+    users_dates = users_list["items"]
+    for user in users_dates:
         User.model_validate(user)
 
 
+
 def test_users_no_duplicates(users):
-    users_ids = [user["id"] for user in users]
+    users_list = users["items"] if 'items' in users else []
+    users_ids = [user["id"] for user in users_list ]
     assert len(users_ids) == len(set(users_ids))
+
 
 
 @pytest.mark.parametrize("user_id", [1, 6, 12])
