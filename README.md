@@ -37,8 +37,12 @@
 <img src="assets/docker_container.PNG">
 </details>
 
-5. Запуск командой `docker compose up -d` можно перейти по адресу порта `http://localhost:8080/` 
-и убедится что админка из файла `docker-compose.yml` активна  
+5. Запуск командой 
+```commandline
+docker compose up -d
+```
+
+и перейти по адресу порта `http://localhost:8080/` и убедится что админка из файла `docker-compose.yml` активна  
 
 <details><summary>Adminer</summary>
 <br>
@@ -66,4 +70,6 @@ docker compose down
 volumes:
   db-data:
 ```
-
+8. Прописать строку для доступа к базе данные sqlalchemy в env файле:  
+`DATABASE_ENGINE=postgresql+psycopg2://postgres:example@localhost:5432/postgres`
+9. 

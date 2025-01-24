@@ -1,9 +1,10 @@
 from http import HTTPStatus
-from app.database import users_db
-from app.models.User import User
+from typing import Iterable
 from fastapi import APIRouter, HTTPException
-from fastapi_pagination import Page, paginate
+from app.database import users
+from app.models.User import User
 
+# from fastapi_pagination import Page, paginate
 
 router = APIRouter(prefix="/api/users")
 
@@ -12,11 +13,13 @@ router = APIRouter(prefix="/api/users")
 def get_user(user_id: int) -> User:
     if user_id < 1:
         raise HTTPException(status_code=HTTPStatus.UNPROCESSABLE_ENTITY, detail="Invalid user id")
-    if user_id > len(users_db):
+    user = users.get_user(user_id)
+
+    if not user:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="User not found")
-    return users_db[user_id - 1]
+    return user
 
 
-@router.get("/", response_model=Page[User])
-def get_users() -> Page[User]:
-    return paginate(users_db)
+@router.get("/", status_code=HTTPStatus.OK)
+def get_users() -> Iterable[User]:
+    return users.get_users()
