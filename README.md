@@ -29,3 +29,18 @@
 - `sqlalchemy` 
 - `sqlmodel` - позволяет использовать стандартные модели pydantic для описания моделей из базы данных
 
+3. Получим с `docker hub` необходимый конфигурационный файл  `docker-compose.yml` и поместим в проект  
+[docker hub](https://hub.docker.com/_/postgres)
+4. Запустить Docker локально 
+```
+C:\Program Files\Docker\Docker\Docker Desktop.exe
+```
+![docker container](assets/docker_container.PNG)  
+5. Запуск командой `docker compose up -d` можно перейти по адресу порта `http://localhost:8080/` 
+и убедится что админка из файла `docker-compose.yml` активна  
+![adminer](assets/adminer.PNG)
+Можем войти используя имя/пароль из docker файла:
+```
+Use postgres/example user/password credentials
+```
+![database](assets/database.PNG)  
