@@ -1,7 +1,7 @@
 import pytest
 import requests
 from http import HTTPStatus
-from models.User import User
+from app.models.User import User
 
 
 # valid values tests

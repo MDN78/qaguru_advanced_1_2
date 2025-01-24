@@ -15,6 +15,9 @@ requests = "^2.32.3"
 pydantic = "^2.10.5"
 fastapi-pagination = "^0.12.34"
 uvicorn = "^0.34.0"
+psycopg2-binary = "^2.9.10"
+sqlalchemy = "^2.0.37"
+sqlmodel = "^0.0.22"
 
 [tool.pytest.ini_options]
 addopts = "-s -v"
