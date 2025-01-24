@@ -56,3 +56,14 @@
 ```commandline
 docker compose down
 ```
+7. Добавить возможность доступа к базе данных извне, добавив в файл `docker-compose.yml` необходимую информацию  
+```html
+    ports:
+      - 5432:5432
+```
+Данные будут храниться:
+```html
+volumes:
+  db-data:
+```
+
