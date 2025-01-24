@@ -27,10 +27,10 @@ def test_incorrect_method_post(app_url):
 
 
 def test_incorrect_method_put(app_url):
-    response = requests.post(f"{app_url}/api/users/")
+    response = requests.put(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
 
 
 def test_incorrect_method_delete(app_url):
-    response = requests.post(f"{app_url}/api/users/")
+    response = requests.delete(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
