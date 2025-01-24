@@ -18,6 +18,8 @@ if __name__ == "__main__":
     # read file from memory
     with open("../users.json") as f:
         users_db.extend(json.load(f))
+        print(users_db)
+
     # validation dates in file
     for user in users_db:
         User.model_validate(user)
