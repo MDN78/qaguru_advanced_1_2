@@ -15,6 +15,7 @@ requests = "^2.32.3"
 pydantic = "^2.10.5"
 fastapi-pagination = "^0.12.34"
 uvicorn = "^0.34.0"
+jsondiff = "^2.2.1"
 
 [tool.pytest.ini_options]
 addopts = "-s -v"
