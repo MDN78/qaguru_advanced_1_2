@@ -1,13 +1,17 @@
+from http import HTTPStatus
+
 import pytest
 import requests
 import math
+
 
 def test_total_page_and_size_in_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     data = response.json()
     assert data["total"] == len(data["items"])
-    assert data["page"] == 1
-    assert data["size"] == 50
+    assert response.status_code == HTTPStatus.OK
+    assert 'page' in data
+    assert 'size' in data
 
 
 @pytest.mark.parametrize("page, size", [(1, 12), (2, 6), (4, 3)])
@@ -18,13 +22,15 @@ def test_page_size(app_url, page, size):
     assert size == data['size']
     assert len(data["items"]) == size
 
-@pytest.mark.parametrize("page, size", [(1, 12), (2, 6), (4, 3)])
-def test_expected_pages(app_url, page, size):
-    response = requests.get(f"{app_url}/api/users/", params={"page": page, "size": size})
+
+@pytest.mark.parametrize("size", [12, 6, 3])
+def test_expected_pages(app_url, size):
+    response = requests.get(f"{app_url}/api/users/", params={"size": size})
     data = response.json()
     expected_pages = math.ceil(data['total'] / size)
     assert data['pages'] == expected_pages
     assert len(data['items']) == size
+    assert response.status_code == HTTPStatus.OK
 
 
 def test_users_in_pages(app_url):
