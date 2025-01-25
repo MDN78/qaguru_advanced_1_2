@@ -27,6 +27,7 @@ def fill_test_data(app_url):
 
 
 # valid values tests
+@pytest.mark.usefixtures("fill_test_data")
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
@@ -35,6 +36,7 @@ def test_users(app_url):
         User.model_validate(user)
 
 
+@pytest.mark.usefixtures("fill_test_data")
 def test_users_no_duplicates(users):
     users_list = users["items"] if 'items' in users else []
     users_ids = [user["id"] for user in users_list]
