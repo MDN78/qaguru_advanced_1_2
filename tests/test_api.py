@@ -9,8 +9,7 @@ def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
     users_list = response.json()
-    users_dates = users_list["items"]
-    for user in users_dates:
+    for user in users_list:
         User.model_validate(user)
 
 
