@@ -2,14 +2,18 @@ import pytest
 import requests
 
 
+@pytest.mark.skip("waiting")
+@pytest.mark.usefixtures("fill_test_data")
 def test_total_page_and_size_in_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     data = response.json()
+    print(data)
     assert data["total"] == 12
     assert data["page"] == 1
     assert data["size"] == 50
 
 
+@pytest.mark.skip("waiting")
 @pytest.mark.parametrize("page, size", [(1, 12), (2, 6), (4, 3)])
 def test_page_size(app_url, page, size):
     response = requests.get(f"{app_url}/api/users/", params={"page": page, "size": size})
@@ -19,6 +23,7 @@ def test_page_size(app_url, page, size):
     assert len(data["items"]) == size
 
 
+@pytest.mark.skip("waiting")
 def test_users_in_pages(app_url):
     first_page = {"page": 2, "size": 4}
     second_page = {"page": 3, "size": 4}

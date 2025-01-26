@@ -18,3 +18,17 @@
 - user flow: создаем, читаем, обновляем, удаляем
 - валидность тестовых данных (емейл, урл)
 - отправить модель без поля на создание
+
+### Реализация  
+1. Запуск posgresql in Docker
+<details><summary>Docker</summary>
+<br>
+<img src="assets/docker_container.PNG">
+<img src="assets/docker_compose_run.PNG">
+</details>    
+
+2. Запустить проект локально
+<details><summary>Local run</summary>
+<br>
+<img src="assets/docker_run.PNG">
+</details>  

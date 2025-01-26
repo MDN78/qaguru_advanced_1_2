@@ -1,8 +1,10 @@
+from http import HTTPStatus
 import os
+import json
 import dotenv
 import pytest
 import requests
-from http import HTTPStatus
+
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -25,3 +27,22 @@ def users(app_url):
 @pytest.fixture
 def port():
     return 8002
+
+# preconditions - add users to database without users id
+# scope="module" - this fixture for this module (page)
+@pytest.fixture(scope="module")
+def fill_test_data(app_url):
+    with open("users.json") as f:
+        test_data_users = json.load(f)
+    api_users = []
+    for user in test_data_users:
+        response = requests.post(f"{app_url}/api/users/", json=user)
+        api_users.append(response.json())
+
+    user_ids = [user["id"] for user in api_users]
+
+    yield user_ids  # test start here, fixture return user_ids
+
+    # delete created users from database
+    for user_id in user_ids:
+        requests.delete(f"{app_url}/api/users/{user_id}")

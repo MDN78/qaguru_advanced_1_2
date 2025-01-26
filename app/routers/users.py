@@ -4,7 +4,6 @@ from fastapi import APIRouter, HTTPException
 from app.database import users
 from app.models.User import User, UserCreate, UserUpdate
 
-# from fastapi_pagination import Page, paginate
 
 router = APIRouter(prefix="/api/users")
 
