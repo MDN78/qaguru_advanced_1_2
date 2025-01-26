@@ -49,7 +49,7 @@ def fill_test_data(app_url):
 
 
 @pytest.fixture
-def new_user():
+def new_user() -> dict:
     new_user = {
         "email": os.getenv("NEW_USER_EMAIL"),
         "first_name": os.getenv("NEW_USER_FIRST_NAME"),
@@ -60,7 +60,7 @@ def new_user():
 
 
 @pytest.fixture
-def create_new_user():
+def create_new_user() -> int:
     url = os.getenv("APP_URL")
     new_user = {
         "email": os.getenv("NEW_USER_EMAIL"),
