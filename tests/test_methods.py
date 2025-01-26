@@ -35,3 +35,10 @@ def test_create_user_non_allowed_method(app_url, new_user):
     data = response.json()
     assert 'Method Not Allowed' in data['detail']
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
+
+
+# Тест отправить модель без поля на создание ошибка 422
+def test_create_user_without_data(app_url):
+    new_user = []
+    response = requests.post(f"{app_url}/api/users/", json=new_user)
+    assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY

@@ -26,5 +26,4 @@ def test_status_users_dates(app_url):
 def test_status_invalid_methods(app_url, method):
     url = f"{app_url}/status/"
     response = getattr(requests, method)(url)
-    print(response)
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
