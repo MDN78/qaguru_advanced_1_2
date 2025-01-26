@@ -43,7 +43,7 @@
 <img src="assets/docker_run.PNG">
 </details>  
 
-3. Реализованы тесты:
+3. Реализованы тесты `test_methods`:
 
 - [x] Тест на post: создание
 - [x] Тест на delete: удаление
