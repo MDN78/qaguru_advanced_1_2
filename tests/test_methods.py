@@ -42,3 +42,13 @@ def test_create_user_without_data(app_url):
     new_user = []
     response = requests.post(f"{app_url}/api/users/", json=new_user)
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
+
+
+# Тест 404 на удаленного пользователя
+@pytest.mark.usefixtures("create_new_user")
+def test_get_deleted_user(app_url, create_new_user):
+    response = requests.delete(f"{app_url}/api/users/{create_new_user}")
+    assert response.status_code == HTTPStatus.OK
+    response1 = requests.get(f"{app_url}/api/users/{create_new_user}")
+    assert response1.status_code == HTTPStatus.NOT_FOUND
+    assert response1.json()['detail'] == 'User not found'
