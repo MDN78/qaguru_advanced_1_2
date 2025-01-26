@@ -27,7 +27,7 @@
 
 <details><summary>Docker</summary>
 <br>
-
+<img src="assets/docker_container.PNG">
 <img src="assets/docker_compose_run.PNG">
 </details>    
 
