@@ -27,3 +27,11 @@ def test_delete_user(app_url, create_new_user):
     response = requests.delete(f"{app_url}/api/users/{create_new_user}")
     assert response.status_code == HTTPStatus.OK
     assert response.json()['message'] == 'User deleted'
+
+
+# Тест на 405 ошибку
+def test_create_user_non_allowed_method(app_url, new_user):
+    response = requests.patch(f"{app_url}/api/users/", json=new_user)
+    data = response.json()
+    assert 'Method Not Allowed' in data['detail']
+    assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
