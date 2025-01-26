@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 
 # Тест на post: создание. Предусловия: подготовленные тестовые данные
-@pytest.mark.skip
+
 def test_create_user(app_url, new_user):
     response = requests.post(f"{app_url}/api/users/", json=new_user)
     created_user = response.json()
@@ -14,7 +14,7 @@ def test_create_user(app_url, new_user):
 
 
 # Тест на patch: изменение. Предусловия: созданный пользователь
-@pytest.mark.skip
+
 @pytest.mark.usefixtures("create_new_user")
 def test_update_user(app_url, new_user, create_new_user):
     updated_user_info = {'email': "updated_email@test.com"}
