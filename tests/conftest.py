@@ -6,7 +6,6 @@ import pytest
 import requests
 
 
-
 @pytest.fixture(scope="session", autouse=True)
 def envs():
     dotenv.load_dotenv()
@@ -28,6 +27,7 @@ def users(app_url):
 def port():
     return 8002
 
+
 # preconditions - add users to database without users id
 # scope="module" - this fixture for this module (page)
 @pytest.fixture(scope="module")
@@ -46,3 +46,14 @@ def fill_test_data(app_url):
     # delete created users from database
     for user_id in user_ids:
         requests.delete(f"{app_url}/api/users/{user_id}")
+
+
+@pytest.fixture
+def new_user():
+    new_user = {
+        "email": os.getenv("NEW_USER_EMAIL"),
+        "first_name": os.getenv("NEW_USER_FIRST_NAME"),
+        "last_name": os.getenv("NEW_USER_LAST_NAME"),
+        "avatar": os.getenv("NEW_USER_AVATAR")
+    }
+    return new_user
