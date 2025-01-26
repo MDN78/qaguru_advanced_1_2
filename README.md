@@ -32,3 +32,8 @@
 <br>
 <img src="assets/docker_run.PNG">
 </details>  
+
+3. Реализованы тесты:  
+- [x] Тест на post: создание
+- [x] Тест на delete: удаление
+- [x] Тест на patch: изменение
