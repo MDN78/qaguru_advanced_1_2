@@ -57,3 +57,16 @@ def new_user():
         "avatar": os.getenv("NEW_USER_AVATAR")
     }
     return new_user
+
+
+@pytest.fixture
+def create_new_user():
+    url = os.getenv("APP_URL")
+    new_user = {
+        "email": os.getenv("NEW_USER_EMAIL"),
+        "first_name": os.getenv("NEW_USER_FIRST_NAME"),
+        "last_name": os.getenv("NEW_USER_LAST_NAME"),
+        "avatar": os.getenv("NEW_USER_AVATAR")
+    }
+    user = requests.post(f"{url}/api/users/", json=new_user)
+    return user.json()['id']
