@@ -4,7 +4,6 @@ from http import HTTPStatus
 
 
 # Тест на post: создание. Предусловия: подготовленные тестовые данные
-
 def test_create_user(app_url, new_user):
     response = requests.post(f"{app_url}/api/users/", json=new_user)
     created_user = response.json()
@@ -14,13 +13,12 @@ def test_create_user(app_url, new_user):
 
 
 # Тест на patch: изменение. Предусловия: созданный пользователь
-
 @pytest.mark.usefixtures("create_new_user")
 def test_update_user(app_url, new_user, create_new_user):
     updated_user_info = {'email': "updated_email@test.com"}
     res = requests.patch(f"{app_url}/api/users/{create_new_user}", json=updated_user_info)
-    assert res.json()['email'] == updated_user_info['email']
     assert res.status_code == HTTPStatus.OK
+    assert res.json()['email'] == updated_user_info['email']
 
 
 # Тест на delete: удаление. Предусловия: созданный пользователь
