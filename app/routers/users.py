@@ -4,7 +4,6 @@ from fastapi import APIRouter, HTTPException
 from app.database import users
 from app.models.User import User, UserCreate, UserUpdate
 
-
 router = APIRouter(prefix="/api/users")
 
 
