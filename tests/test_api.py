@@ -10,7 +10,7 @@ from app.models.User import User
 def test_users(app_url):
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
-    users_list = response.json()
+    users_list = response.json()['items']
     for user in users_list:
         User.model_validate(user)
 

@@ -4,6 +4,9 @@ from fastapi import APIRouter, HTTPException
 from app.database import users
 from app.models.User import User, UserCreate, UserUpdate
 
+from fastapi_pagination import Page
+from app.database.users import get_users_paginated
+
 router = APIRouter(prefix="/api/users")
 
 
@@ -18,9 +21,10 @@ def get_user(user_id: int) -> User:
     return user
 
 
-@router.get("/", status_code=HTTPStatus.OK)
-def get_users() -> Iterable[User]:
-    return users.get_users()
+@router.get('/', status_code=HTTPStatus.OK)
+def get_users() -> Page[User]:
+    """Получить всех пользователей"""
+    return get_users_paginated()
 
 
 @router.post("/", status_code=HTTPStatus.CREATED)
