@@ -4,6 +4,7 @@ import json
 import dotenv
 import pytest
 import requests
+from faker import Faker
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -50,13 +51,15 @@ def fill_test_data(app_url):
 
 @pytest.fixture
 def new_user() -> dict:
+    fake = Faker()
     new_user = {
-        "email": os.getenv("NEW_USER_EMAIL"),
-        "first_name": os.getenv("NEW_USER_FIRST_NAME"),
-        "last_name": os.getenv("NEW_USER_LAST_NAME"),
-        "avatar": os.getenv("NEW_USER_AVATAR")
+        "email": fake.email(),
+        "first_name": fake.first_name(),
+        "last_name": fake.last_name(),
+        "avatar": fake.image_url()
     }
     return new_user
+
 
 
 @pytest.fixture
@@ -69,4 +72,5 @@ def create_new_user() -> int:
         "avatar": os.getenv("NEW_USER_AVATAR")
     }
     user = requests.post(f"{url}/api/users/", json=new_user)
+    assert user.status_code == HTTPStatus.CREATED
     return user.json()['id']

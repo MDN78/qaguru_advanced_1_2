@@ -34,8 +34,8 @@ def test_delete_user(app_url, create_new_user):
 def test_create_user_non_allowed_method(app_url, new_user):
     response = requests.patch(f"{app_url}/api/users/", json=new_user)
     data = response.json()
-    assert 'Method Not Allowed' in data['detail']
     assert response.status_code == HTTPStatus.METHOD_NOT_ALLOWED
+    assert 'Method Not Allowed' in data['detail']
 
 
 # Тест отправить модель без поля на создание ошибка 422
