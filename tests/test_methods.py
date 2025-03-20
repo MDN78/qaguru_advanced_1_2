@@ -11,6 +11,8 @@ def test_create_user(app_url, new_user):
     assert created_user['email'] == new_user['email']
     assert created_user['first_name'] == new_user['first_name']
 
+    requests.delete(f"{app_url}/api/users/{created_user['id']}")
+
 
 # Тест на patch: изменение. Предусловия: созданный пользователь
 @pytest.mark.usefixtures("create_new_user")
@@ -20,6 +22,8 @@ def test_update_user(app_url, new_user, create_new_user, email):
     res = requests.patch(f"{app_url}/api/users/{create_new_user}", json=updated_user_info)
     assert res.status_code == HTTPStatus.OK
     assert res.json()['email'] == updated_user_info['email']
+
+    requests.delete(f"{app_url}/api/users/{create_new_user}")
 
 
 # Тест на delete: удаление. Предусловия: созданный пользователь
@@ -46,7 +50,7 @@ def test_create_user_without_data(app_url):
 
 
 # Тест 404 на удаленного пользователя
-@pytest.mark.usefixtures("create_new_user")
+# @pytest.mark.usefixtures("create_new_user")
 def test_get_deleted_user(app_url, create_new_user):
     response = requests.delete(f"{app_url}/api/users/{create_new_user}")
     assert response.status_code == HTTPStatus.OK

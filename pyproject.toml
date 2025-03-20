@@ -19,6 +19,7 @@ psycopg2-binary = "^2.9.10"
 sqlalchemy = "^2.0.37"
 sqlmodel = "^0.0.22"
 faker = "^35.0.0"
+jsonschema = "^4.23.0"
 
 [tool.pytest.ini_options]
 addopts = "-s -v"

@@ -13,19 +13,19 @@ def envs():
 
 
 @pytest.fixture(scope="session")
-def app_url():
+def app_url() -> str:
     return os.getenv("APP_URL")
 
 
 @pytest.fixture
-def users(app_url):
+def users(app_url) -> json:
     response = requests.get(f"{app_url}/api/users/")
     assert response.status_code == HTTPStatus.OK
     return response.json()
 
 
 @pytest.fixture
-def port():
+def port() -> int:
     return 8002
 
 
