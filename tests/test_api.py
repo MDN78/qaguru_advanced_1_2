@@ -6,10 +6,18 @@ from app.models.User import User
 
 
 # valid values tests
+# @pytest.mark.usefixtures("fill_test_data")
+# def test_users(app_url):
+#     response = requests.get(f"{app_url}/api/users/")
+#
+#     assert response.status_code == HTTPStatus.OK
+#     users_list = response.json()['items']
+#     for user in users_list:
+#         User.model_validate(user)
+
 @pytest.mark.usefixtures("fill_test_data")
-def test_users(app_url):
-    response = requests.get(f"{app_url}/api/users/")
-    print(response.json())
+def test_users(reqresin):
+    response = reqresin.get("/api/users/")
     assert response.status_code == HTTPStatus.OK
     users_list = response.json()['items']
     for user in users_list:

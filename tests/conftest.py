@@ -6,6 +6,7 @@ import pytest
 import requests
 from faker import Faker
 
+pytest_plugins = ['fixture_session']
 
 @pytest.fixture(scope="session", autouse=True)
 def envs():
@@ -61,7 +62,6 @@ def new_user() -> dict:
     return new_user
 
 
-
 @pytest.fixture
 def create_new_user() -> int:
     url = os.getenv("APP_URL")
@@ -74,3 +74,16 @@ def create_new_user() -> int:
     user = requests.post(f"{url}/api/users/", json=new_user)
     assert user.status_code == HTTPStatus.CREATED
     return user.json()['id']
+
+
+def pytest_addoption(parser):
+    parser.addoption("--env", default="rc")
+
+
+@pytest.fixture(scope="session")
+def env(request):
+    return request.config.getoption("--env")
+
+
+
+
