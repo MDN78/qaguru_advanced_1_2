@@ -5,6 +5,9 @@ import dotenv
 import pytest
 import requests
 from faker import Faker
+from app.models.reqres import Reqres
+
+pytest_plugins = ['fixture_session']
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -13,19 +16,19 @@ def envs():
 
 
 @pytest.fixture(scope="session")
-def app_url():
+def app_url() -> str:
     return os.getenv("APP_URL")
 
 
 @pytest.fixture
-def users(app_url):
-    response = requests.get(f"{app_url}/api/users/")
+def users(env) -> json:
+    response = Reqres(env).get_users()
     assert response.status_code == HTTPStatus.OK
     return response.json()
 
 
 @pytest.fixture
-def port():
+def port() -> int:
     return 8002
 
 
@@ -61,16 +64,23 @@ def new_user() -> dict:
     return new_user
 
 
-
 @pytest.fixture
-def create_new_user() -> int:
-    url = os.getenv("APP_URL")
+def create_new_user(env) -> int:
     new_user = {
         "email": os.getenv("NEW_USER_EMAIL"),
         "first_name": os.getenv("NEW_USER_FIRST_NAME"),
         "last_name": os.getenv("NEW_USER_LAST_NAME"),
         "avatar": os.getenv("NEW_USER_AVATAR")
     }
-    user = requests.post(f"{url}/api/users/", json=new_user)
+    user = Reqres(env).greate_user(new_user)
     assert user.status_code == HTTPStatus.CREATED
     return user.json()['id']
+
+
+def pytest_addoption(parser):
+    parser.addoption("--env", default="rc")
+
+
+@pytest.fixture(scope="session")
+def env(request):
+    return request.config.getoption("--env")

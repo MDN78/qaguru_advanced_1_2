@@ -3,10 +3,11 @@ import socket
 import requests
 import pytest
 from http import HTTPStatus
+from app.models.reqres import Reqres
 
 
-def test_status(app_url):
-    response = requests.get(f"{app_url}/status")
+def test_status(env):
+    response = Reqres(env).get_status()
     assert response.status_code == HTTPStatus.OK
 
 
@@ -16,8 +17,8 @@ def test_server_responds_on_port(port):
         assert True, f"Server should be responding on port {port}."
 
 
-def test_status_users_dates(app_url):
-    response = requests.get(f"{app_url}/status")
+def test_status_users_dates(env):
+    response = Reqres(env).get_status()
     result = response.json()
     assert result['database'] == True
 
