@@ -1,6 +1,8 @@
+from app.models.reqres import Reqres
 
-def get_user_id(reqresin) -> int:
-    response = reqresin.get("/api/users/")
+
+def get_user_id_with_model(env) -> int:
+    response = Reqres(env).get_users()
     users = response.json()
     target_user = "Janet"
     target_id = None
